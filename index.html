@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>FitSalad - Nutrição Balanceada</title>
+	<style>
+		body {
+			margin: 0;
+			font-family: 'Arial', sans-serif;
+			background: linear-gradient(rgba(27, 94, 32, 0.9), rgba(27, 94, 32, 0.8)),
+				url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixid=M3wzNjM5Nzd8MHwxfHNlYXJjaHwxfHxzYWxhZGF8ZW58MHx8fHwxNjk3MjUwNTE0fDA&ixlib=rb-4.0.3&w=1920');
+			background-size: cover;
+			background-position: center;
+			color: white;
+			min-height: 100vh;
+			position: relative;
+		}
+
+		/* Botão de Login */
+		.login-button {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			background: #FFD700;
+			color: #1B5E20;
+			padding: 12px 30px;
+			border-radius: 30px;
+			text-decoration: none;
+			font-weight: bold;
+			transition: transform 0.3s, box-shadow 0.3s;
+			box-shadow: 0 3px 10px rgba(255, 215, 0, 0.4);
+			z-index: 1000;
+		}
+
+		.login-button:hover {
+			transform: scale(1.05);
+			box-shadow: 0 5px 15px rgba(255, 215, 0, 0.6);
+		}
+
+		/* Modal de Login */
+		.modal {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.7);
+		}
+
+		.modal-content {
+			background: rgba(255, 255, 255, 0.15);
+			padding: 40px;
+			border-radius: 15px;
+			width: 90%;
+			max-width: 500px;
+			margin: 10% auto;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+			backdrop-filter: blur(5px);
+		}
+
+		.modal-content h2 {
+			color: #FFD700;
+			margin-bottom: 30px;
+			text-align: center;
+		}
+
+		.input-group {
+			margin-bottom: 25px;
+		}
+
+		.input-group input {
+			width: 100%;
+			padding: 15px;
+			background: rgba(255, 255, 255, 0.2);
+			border: 2px solid #FFD700;
+			border-radius: 8px;
+			color: white;
+			font-size: 16px;
+			margin-top: 5px;
+		}
+
+		.login-btn {
+			background: #FFD700;
+			color: #1B5E20;
+			padding: 15px;
+			border: none;
+			border-radius: 8px;
+			width: 100%;
+			font-size: 16px;
+			cursor: pointer;
+			margin-top: 10px;
+			transition: transform 0.3s;
+		}
+
+		.register-link {
+			text-align: center;
+			margin-top: 20px;
+		}
+
+		.register-link a {
+			color: #FFD700;
+			text-decoration: none;
+			font-weight: bold;
+		}
+
+		/* Estilos originais da página principal */
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+
+		.hero-section {
+			text-align: center;
+			padding: 120px 20px;
+			border-radius: 15px;
+			margin: 20px 0;
+		}
+
+		.hero-section h1 {
+			font-size: 3.5em;
+			color: #FFD700;
+			text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+		}
+
+		.hero-section p {
+			font-size: 1.3em;
+			max-width: 700px;
+			margin: 0 auto;
+			color: #FFFDD0;
+		}
+
+		.section {
+			background: rgba(0, 128, 0, 0.7);
+			border-radius: 10px;
+			padding: 30px;
+			margin: 20px 0;
+		}
+
+		.food-item {
+			display: flex;
+			justify-content: space-between;
+			padding: 20px;
+			border-bottom: 1px solid #FFD700;
+		}
+
+		.calorie-info {
+			background: #FFD700;
+			color: #1B5E20;
+			padding: 10px 20px;
+			border-radius: 8px;
+			font-weight: bold;
+			min-width: 180px;
+			text-align: center;
+		}
+
+		.cta-button {
+			background: #FFD700;
+			color: #1B5E20;
+			padding: 18px 40px;
+			border-radius: 30px;
+			text-decoration: none;
+			font-weight: bold;
+			display: inline-block;
+			margin: 30px 0;
+			transition: transform 0.3s, box-shadow 0.3s;
+			box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+		}
+
+		.footer {
+			text-align: center;
+			padding: 30px;
+			background: rgba(0, 128, 0, 0.9);
+			margin-top: 40px;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Botão de Login -->
+	<a href="#" class="login-button" onclick="openModal()">Login</a>
+
+	<div class="container">
+		<!-- Seção de Boas Vindas -->
+		<div class="hero-section">
+			<h1>🥗 Bem-vindo ao FitSalad! 🥗</h1>
+			<p>Sua jornada para uma alimentação saudável e saborosa começa aqui</p>
+			<a href="#cardapio" class="cta-button">Ver Cardápio Completo</a>
+		</div>
+
+		<!-- Cardápio Fitness -->
+		<div class="section" id="cardapio">
+			<h2>🌱 Cardápio Especial</h2>
+			<div class="food-item">
+				<span>Salada Mediterrânea</span>
+				<div class="calorie-info">480 kcal | 20% gordura</div>
+			</div>
+			<div class="food-item">
+				<span>Frango com Quinoa</span>
+				<div class="calorie-info">520 kcal | 18% gordura</div>
+			</div>
+			<div class="food-item">
+				<span>Smoothie de Espinafre</span>
+				<div class="calorie-info">320 kcal | 10% gordura</div>
+			</div>
+		</div>
+
+		<!-- Cronograma de Treino -->
+		<div class="section">
+			<h2>🏋️ Cronograma de Treino</h2>
+			<table class="training-table">
+				<tr>
+					<th>Dia</th>
+					<th>Grupo Muscular</th>
+					<th>Exercícios</th>
+				</tr>
+				<tr>
+					<td>Segunda</td>
+					<td>Pernas</td>
+					<td>Agachamento, Lunges, Panturrilhas</td>
+				</tr>
+				<tr>
+					<td>Quarta</td>
+					<td>Superior</td>
+					<td>Flexões, Remada, Shoulder Press</td>
+				</tr>
+				<tr>
+					<td>Sexta</td>
+					<td>Cardio</td>
+					<td>Corrida, HIIT, Cycling</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="footer">
+			<p>© 2025 FitSalad | contato@fitsalad.com | (63) 99999-9999</p>
+		</div>
+	</div>
+
+	<!-- Modal de Login -->
+	<div id="loginModal" class="modal">
+		<div class="modal-content">
+			<h2>Login</h2>
+			<form action="dashboard.html">
+				<div class="input-group">
+					<input type="email" placeholder="Email" required>
+                </div>
+					<div class="input-group">
+						<input type="password" placeholder="Senha" required>
+                </div>
+						<button type="submit" class="login-btn">Entrar</button>
+						<div class="register-link">
+							<a href="#">Esqueceu sua senha?</a><br>
+							<a href="#">Não tem conta? Registre-se</a>
+						</div>
+			</form>
+		</div>
+	</div>
+
+	<script>
+		function openModal() {
+            document.getElementById('loginModal').style.display = 'block';
+        }
+
+        window.onclick = function(event) {
+            var modal = document.getElementById('loginModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+	</script>
+</body>
+
+</html>
